@@ -1,7 +1,6 @@
 % ubelong retiling
-% 找到 candidate points 对应的面和重心坐标
-% candidate point 坐标，faces_name
-% vertices_cand(1:nCand,:), nameF_cand(1:nCand)
+% compute candidate points barycentric coordinates
+
 vcd = vertices_cand(1:nCand,:); nameFcd = nameF_cand(1:nCand);
 ubelongcd = zeros(nCand, 15);
 ubelongcd(:,15) = 1; % candidate points 不属于三个chart中任何一个
@@ -20,14 +19,14 @@ cs2 = cross(vcd - v1, v3 - v1, 2);
 cs3 = cross(v2 - v1, vcd - v1, 2);
 
 % test
-cs = [cs1(:,1), cs2(:,1), cs3(:,1)]./ msi(:,1);
-cstest1 = [cs1(:,2), cs2(:,2), cs3(:,2)]./ msi(:, 2) - cs;
-cstest2 = [cs1(:,3), cs2(:,3), cs3(:,3)]./ msi(:, 3) - cs;
-centtest = max(cstest1, cstest2);
+% cs = [cs1(:,1), cs2(:,1), cs3(:,1)]./ msi(:,1);
+% cstest1 = [cs1(:,2), cs2(:,2), cs3(:,2)]./ msi(:, 2) - cs;
+% cstest2 = [cs1(:,3), cs2(:,3), cs3(:,3)]./ msi(:, 3) - cs;
+% centtest = max(cstest1, cstest2);
 
-% 2.重心坐标
-ss1 = sum(abs(cs1).^2, 2).^(1/2); ss2 = sum(abs(cs2).^2, 2).^(1/2);
-ss3 = sum(abs(cs3).^2, 2).^(1/2); sss = sum(abs(msi).^2, 2).^(1/2);
+% 2.barycentric coordinates
+ss1 = sqrt(sum((cs1).^2, 2)); ss2 = sqrt(sum((cs2).^2, 2));
+ss3 = sqrt(sum((cs3).^2, 2)); sss = sqrt(sum((msi).^2, 2));
 ubelongcd(:, 4:6) = [ss1, ss2, ss3] ./ sss;
 
 % 3.调整 candidate vertices 所属的 chart

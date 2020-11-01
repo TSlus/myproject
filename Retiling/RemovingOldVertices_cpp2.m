@@ -32,8 +32,8 @@ for i = 1:np
         trimesh(faces_Mutual, vertices_Mutual(:,1), vertices_Mutual(:,2), vertices_Mutual(:,3));
         axis equal; hold on
         plot3(vertices(i,1),vertices(i,2),vertices(i,3),'r*');
-        disp('检查二度点。')
-        n_rem = -2;
+        warning('检查二度点。')
+        n_rem = Inf;
         return;
     end
     
@@ -133,14 +133,18 @@ for i = 1:np
 
     if ~re_flag; continue; end
     
+    lastwarn('');
+    warning ('off');
     polyin = polyshape(xy(:,1), xy(:,2));
     T = triangulation(polyin);
     
-    [msg,~] = lastwarn;
+    [msg, ~] = lastwarn;
     if ~isempty(msg)
         lastwarn('');
+        warning ('on');
         continue;
     end
+    warning ('on');
 
     % 加入的面
     adj_near = [1, n_near:-1:2];

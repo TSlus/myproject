@@ -8,7 +8,7 @@ vertices_cand_old = vertices_cand;
 vertices_cand = vertices_cand + dam_ * forces; % P’ = P + kS
 
 % 判断待 push 的点是否在原三角形内部
-flag = isOnTriangle(nameF_cand, vertices_cand, vertices, faces, norm_face); %#ok<NODEF>
+flag = isOnTriangle(nameF_cand, vertices_cand, vertices, faces, norm_face);  %#ok<USENS>
 % 1.将在三角形内部的点也投影一次
 idx_not_out =  find(flag == 1);
 for i = idx_not_out

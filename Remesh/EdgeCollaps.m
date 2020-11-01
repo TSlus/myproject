@@ -3,6 +3,8 @@ function [vnew, fnew,temp] = EdgeCollaps( vnew, fnew, sizzz,voriginal,foriginal 
 [vnew, fnew]=CleanPatch(vnew, fnew);
 cases = vnew;
 sizzz=sizzz/sqrt(3);
+% sizzz=sizzz/sqrt(5);
+
 while size(cases,1)>0
 
 fk1 = fnew(:,1);

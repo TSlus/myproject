@@ -16,7 +16,8 @@ area=sqrt(s.*(s-e1).*(s-e2).*(s-e3));
 quality=[e1 e2 e3];
 M = max(quality,[],2);
 qualitycheck = area./M;
-sizzz = mean(qualitycheck)-1.65*std(qualitycheck);
+% sizzz = mean(qualitycheck)-1.65*std(qualitycheck);
+sizzz = mean(qualitycheck)-1.8*std(qualitycheck);
 
 while size(cases,1)>0
 

@@ -10,13 +10,11 @@ title('the original mesh')
 
 %% do remesh
 disp('doing Remesh...')
-tic
 [vertices, faces] = DoRemesh(vertices, faces);
 % plot
 figure(nfig); nfig = nfig + 1;
 trimesh(faces, vertices(:,1),vertices(:,2),vertices(:,3));axis equal
 title('the mesh after remesh')
-toc
 
 %% do Re_Tiling
 disp('======== Do Re-Tiling ========')
@@ -50,14 +48,17 @@ vcdPPS(idx_ord, :) = surfaceConstruction(vertices, faces, loop_point, ube_part);
 vertices_ReT(n_rem+1:end, :) = vcdPPS;
 vertices_final = vertices_ReT; faces_final = faces_ReT;
 
-% figure(nfig); nfig = nfig + 1;
-% trimesh(faces_final, vertices_final(:,1), vertices_final(:,2), vertices_final(:,3));axis equal;
-% title('Retiling & PPS no remesh');
+% plot
+figure(nfig); nfig = nfig + 1;
+trimesh(faces_final, vertices_final(:,1), vertices_final(:,2), vertices_final(:,3));axis equal;
+title('Retiling & PPS no remesh');
 
 %% Remesh
 disp('======== Remesh ========')
 disp('Remeshing...')
 [verticesr, facesr] = DoRemesh(vertices_final, faces_final);
+
+% plot
 figure(nfig); nfig = nfig + 1;
 trimesh(facesr, verticesr(:,1), verticesr(:,2), verticesr(:,3));axis equal;
 title('Retiling & PPS');

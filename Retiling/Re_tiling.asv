@@ -31,7 +31,7 @@ disp(['the minius number of num_vSD:', num2str(min(num_VSD))]);
 
 %% 2.loop k = 100
 disp('Move candidate points on mesh, looping...')
-for n_move = 1:20
+for n_move = 1:
     % (1).repulsive force
     forces = ComputeRepulsiveForce_adj(mymesh, nameF_cand, vertices_cand, FSD, VSD);
     nameF_cand3 = nameF_cand; % for forces test(test 1)
