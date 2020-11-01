@@ -1,5 +1,5 @@
 function [vertices_ReT, faces_ReT, n_rem, ubelongcd, nfig, xdelta] = ...
-    Re_tiling(vertices, faces, nCand, k_level, nfig)
+    Re_tiling(vertices, faces, nCand, k_level, nfig, detail_polt)
 %%
 pre_compute_ReT;
 
@@ -11,12 +11,14 @@ disp('Generate random Candidate Vertices on surface...')
 vertices_CSP = vertices(CSP_idx, :); n_CSP = length(CSP_idx);
 
 % plot v_cand and CSP
+if detail_polt
 figure(nfig); nfig = nfig + 1;
 trimesh(faces, vertices(:,1), vertices(:,2), vertices(:,3));axis equal;
 hold on
 plot3(vertices_cand(:,1), vertices_cand(:,2), vertices_cand(:,3), 'b*');
 plot3(vertices(CSP_idx,1), vertices(CSP_idx,2), vertices(CSP_idx,3), 'r*');axis equal
 hold off; title('Candidate Points and CSP')
+end
 
 %% prapare for loop
 vertices_cand = [vertices_cand; vertices_CSP];
@@ -49,6 +51,7 @@ aplane = sum(forces(1:nCand, :) .* norm_face(nameF_cand3(1:nCand), :),2);
 xdelta = max(abs(aplane));
 
 % plot, after moving candidate points
+if detail_polt
 figure(nfig); nfig = nfig + 1;
 trimesh(faces, vertices(:,1), vertices(:,2), vertices(:,3));axis equal;
 hold on
@@ -56,6 +59,7 @@ plot3(vertices_cand(:,1), vertices_cand(:,2), vertices_cand(:,3), 'b*');
 plot3(vertices(CSP_idx,1), vertices(CSP_idx,2), vertices(CSP_idx,3), 'ro');axis equal
 hold off
 title('Candidate Points and CSP after moving')
+end
 
 %% UbelongCD
 UbelongCD; % Re-Tiling to PPS
@@ -68,18 +72,21 @@ vertices_Mutual = [vertices; vertices_cand(1:nCand,:)];
 mesh_test; % test 2, check the candidate points in triangles or not.
 
 % plot, MutualTesselation
+if detail_polt
 figure(nfig); nfig = nfig + 1;
 trimesh(faces_Mutual, vertices_Mutual(:,1), vertices_Mutual(:,2), vertices_Mutual(:,3));
 axis equal; title('Mutual Tesselation');
-
+end
 %% 4.RemovingOldVertices
 disp('Removing Old Vertices...')
 [vertices_ReT, faces_ReT, n_rem] = RemovingOldVertices_cpp2(...
     mymesh, vertices_cand(1:nCand, :), faces_Mutual, CSP_idx);
 
 % plot 
+if detail_polt
 figure(nfig); nfig = nfig + 1;
 trimesh(faces_ReT, vertices_ReT(:,1), vertices_ReT(:,2), vertices_ReT(:,3));axis equal;
 title('mesh after kicking old points');
+end
 
 end

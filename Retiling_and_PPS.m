@@ -12,14 +12,16 @@ title('the original mesh')
 disp('doing Remesh...')
 [vertices, faces] = DoRemesh(vertices, faces);
 % plot
+if detail_polt
 figure(nfig); nfig = nfig + 1;
 trimesh(faces, vertices(:,1),vertices(:,2),vertices(:,3));axis equal
 title('the mesh after remesh')
+end
 
 %% do Re_Tiling
 disp('======== Do Re-Tiling ========')
 [vertices_ReT, faces_ReT, n_rem, ubelong, nfig, xdelta] = ...
-    Re_tiling(vertices, faces, nCand, k_level, nfig);
+    Re_tiling(vertices, faces, nCand, k_level, nfig, detail_polt);
 % note：vertices_ReT中前n_rem个点是原始顶点
 
 %% do PPS
@@ -47,9 +49,11 @@ vertices_ReT(n_rem+1:end, :) = vcdPPS;
 vertices_final = vertices_ReT; faces_final = faces_ReT;
 
 % plot
+if detail_polt
 figure(nfig); nfig = nfig + 1;
 trimesh(faces_final, vertices_final(:,1), vertices_final(:,2), vertices_final(:,3));axis equal;
 title('Retiling & PPS no remesh');
+end
 
 %% Remesh
 disp('======== Remesh ========')
@@ -57,7 +61,9 @@ disp('Remeshing...')
 [verticesr, facesr] = DoRemesh(vertices_final, faces_final);
 
 % plot
+
 figure(nfig); nfig = nfig + 1;
 trimesh(facesr, verticesr(:,1), verticesr(:,2), verticesr(:,3));axis equal;
 title('Retiling & PPS');
+
 % cpp_result
