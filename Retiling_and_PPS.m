@@ -18,10 +18,8 @@ title('the mesh after remesh')
 
 %% do Re_Tiling
 disp('======== Do Re-Tiling ========')
-tic
 [vertices_ReT, faces_ReT, n_rem, ubelong, nfig, xdelta] = ...
     Re_tiling(vertices, faces, nCand, k_level, nfig);
-toc
 % note：vertices_ReT中前n_rem个点是原始顶点
 
 %% do PPS

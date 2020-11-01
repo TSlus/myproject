@@ -108,7 +108,9 @@ for i = 1:numP
         M(im,:) = Buv(:)';
     end
     
+    warning('off')
     ctrPs{i} = (M'*M)\(M'*Q);
+    warning('on')
 end
 
 end

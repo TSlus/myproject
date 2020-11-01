@@ -1,11 +1,11 @@
 clear;clc;
 addpath(genpath('Models'));
-name1 = 'model.mat'; name2 = 'bunny.mat';
-name3 = 'bronze.mat';
+name1 = 'model.mat';
+name2 = 'bronze.mat';
 
 %% input
 % 1.mesh
-load(name3);
+load(name2);
 
 % 2.number of candidate points
 nCand = ceil(size(faces, 1)/2); % half of the number of faces
